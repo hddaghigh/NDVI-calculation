@@ -16,6 +16,6 @@ pip install -r requirements.txt
 
 ```bash
 
-python main.py --url google.com --constant 5
+python main.py --url [google.com](https://hello.planet.com/data/s/L6GYNf4N6wTRydD) --ndviThresh 0
 
 ```
