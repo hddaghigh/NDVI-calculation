@@ -165,3 +165,30 @@ def calculate(filepath, threshold=0):
   ndvi_range = max -min
   print('ndvi_range:',ndvi_range)
 
+  # open the saved image 
+  image1 = cv2.imread('ndviresult.jpg')
+  # converting the image into grey scale color
+  img = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+
+  # determine the minimum and maximum NDVI values 
+  print('Min NDVI: %.3f, Max NDVI: %.3f' % (np.nanmin(ndvi), np.nanmax(ndvi)))
+  # ask the user to enter a valid NDVI value 
+  ndviValue = float(input ("Enter a value for the above NDVI range:"))
+  ndvi_range = (ndvi_max - ndvi_min) 
+  newMax = 255
+  newMin = 0 
+  NewRange = (newMax - newMin)
+
+  # converting the NDVI value entered by user into 0-255 scale
+  NewValue = (((ndviValue - ndvi_min) * NewRange) / ndvi_range) + newMin
+  NewValue = int(NewValue)
+
+  # convert the greay scale image into a binary image using the specified NDVI threshold
+  ret, thresh2 = cv2.threshold(img, NewValue, 255, cv2.THRESH_BINARY_INV)
+
+  # display the binary NDVI image result 
+  cv2.imshow(thresh2)
+
+  # save the output binary image 
+  cv2.imwrite('imageBinary.jpg', thresh2) 
+
