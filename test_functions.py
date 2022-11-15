@@ -9,11 +9,6 @@ class TestNDVI(unittest.TestCase):
         self.assertAlmostEqual(calculate(1,1), 0)
         self.assertAlmostEqual(calculate(-1,-1), 0)
 
-
-
-
-
-
 if __name__ == '__main__':
     unittest.main()
 
