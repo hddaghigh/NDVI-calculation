@@ -1,6 +1,6 @@
 # NDVI calculation and visualization
 
-A simple python script for calculating NDVI values from earth observation multispectral data. Rasterio and numpy libraries are required.
+A simple python script for calculating The normalized difference vegetation index (NDVI) values from earth observation multispectral data. NDVI is an indicator of vegetation health based on how plants reflect certain ranges of the electromagnetic spectrum. 
 
 ## Set up new virtual environment
 To create a virtual environment:
