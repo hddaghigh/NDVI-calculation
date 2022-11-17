@@ -11,10 +11,15 @@ from functools import lru_cache
 def import_data(url):
   return rasterio.open(url)
 
-def calculate(filepath, threshold=0):
+# claculate NDVI using ndvi_calculation function
+def ndvi_calculation(band_nir,band_red):
+  ndvi = (band_nir.astype(float) - band_red.astype(float)) / (band_nir + band_red) # The Eq. for ndvi
+  return ndvi
+
+def calculate(url, ndviValue=0):
 
   # opening the tiff file
-  sat_data = import_data(filepath)
+  sat_data = import_data(url)
   width_in_projected_units = sat_data.bounds.right - sat_data.bounds.left
   height_in_projected_units = sat_data.bounds.top - sat_data.bounds.bottom
   print("Width: {}, Height: {}".format(width_in_projected_units, height_in_projected_units))
@@ -41,17 +46,12 @@ def calculate(filepath, threshold=0):
   print(sat_data.indexes)
 
   
-  with rasterio.open(filepath) as src: #reads red (6th) band
+  with rasterio.open(url) as src: #reads red (6th) band
     band_red = src.read(6)
-  with rasterio.open(filepath) as src: #reads nir (8th) band
+  with rasterio.open(url) as src: #reads nir (8th) band
     band_nir = src.read(8)
 
   np.seterr(divide='ignore',invalid='ignore')
-
-  # claculate NDVI using ndvi_calculation function
-  def ndvi_calculation(band_nir,band_red):
-    ndvi = (band_nir.astype(float) - band_red.astype(float)) / (band_nir + band_red) # The Eq. for ndvi
-    return ndvi
 
   # checking the output for the ndvi_calculation fuction 
   ndvi = ndvi_calculation(band_nir,band_red)
@@ -173,7 +173,7 @@ def calculate(filepath, threshold=0):
   # determine the minimum and maximum NDVI values 
   print('Min NDVI: %.3f, Max NDVI: %.3f' % (np.nanmin(ndvi), np.nanmax(ndvi)))
   # ask the user to enter a valid NDVI value 
-  ndviValue = float(input ("Enter a value for the above NDVI range:"))
+
   ndvi_range = (ndvi_max - ndvi_min) 
   newMax = 255
   newMin = 0 
