@@ -22,6 +22,7 @@ pip install -r requirements.txt
 
 ## Examples
 Use the following command to run the code. The numeric value written after ndviThresh shows the results for that NDVI threshold.
+
 ```bash
 
 python main.py --url https://hello.planet.com/data/s/L6GYNf4N6wTRydD/download/20210827_162545_60_2262_3B_AnalyticMS_8b.tif --ndviThresh 0
